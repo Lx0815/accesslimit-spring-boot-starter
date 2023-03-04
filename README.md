@@ -20,7 +20,7 @@
 
 ## Q&A
 
-1. 关于自定义 `AccessLimitHandler`
+### 1. 关于自定义 `AccessLimitHandler`
    1. 需要实现 `AccessLimitHandler` 接口。
    2. 所有 `@AccessLimit` 的信息将由 `AbstractAccessLimitInfoProvider` 提供。如若你有更好的方法，也可以实现自己的 
    `AccessLimitInfoProvider` 程序以提供 `@AccessLimit` 到 接口uri 的映射（或者其他方式）。
