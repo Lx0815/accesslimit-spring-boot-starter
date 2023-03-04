@@ -164,7 +164,6 @@ public class LimitIpHandler implements AccessLimitHandler {
      * @param requestInfo 请求 信息
      * @return 返回 剩余封禁时间，单位为 秒
      */
-    @Override
     public Long getRemainingProcessingTime(RequestInfo requestInfo) {
         String timeStr = redisTemplate.<String, String>opsForHash().get(blackListKey, getHashKey(requestInfo));
         if (Objects.isNull(timeStr)) {

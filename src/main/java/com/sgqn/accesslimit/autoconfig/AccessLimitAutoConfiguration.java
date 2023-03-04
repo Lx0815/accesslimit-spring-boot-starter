@@ -2,9 +2,11 @@ package com.sgqn.accesslimit.autoconfig;
 
 import com.sgqn.accesslimit.filter.AccessLimitFilter;
 import com.sgqn.accesslimit.handler.impl.LimitIpHandler;
+import com.sgqn.accesslimit.provider.AccessLimitInfoProvider;
 import com.sgqn.accesslimit.provider.impl.AbstractAccessLimitInfoProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -54,7 +56,8 @@ public class AccessLimitAutoConfiguration {
     }
 
     @Bean
-    public AbstractAccessLimitInfoProvider defaultAccessLimitInfoProvider() {
+    @ConditionalOnMissingBean(AccessLimitInfoProvider.class)
+    public AccessLimitInfoProvider AccessLimitInfoProvider() {
         return new AbstractAccessLimitInfoProvider();
     }
 }

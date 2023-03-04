@@ -31,14 +31,6 @@ public interface AccessLimitHandler {
     }
 
     /**
-     * 是否正在被处理中
-     *
-     * @param requestInfo 请求 IP
-     * @return 返回 True 表示正在被处理
-     */
-    Long getRemainingProcessingTime(RequestInfo requestInfo);
-
-    /**
      * 当该接口已经不被允许访问时响应错误消息
      *
      * @param request  请求
