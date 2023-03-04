@@ -1,10 +1,12 @@
-package com.sgqn.clubonline.web.config.requestfrequency;
+package com.sgqn.accesslimit.annotation;
 
-import org.checkerframework.checker.units.qual.C;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import com.sgqn.accesslimit.handler.AccessLimitHandler;
+import com.sgqn.accesslimit.handler.impl.LimitIpHandler;
 
-import java.util.concurrent.TimeUnit;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @description:
@@ -14,18 +16,17 @@ import java.util.concurrent.TimeUnit;
  * @modify:
  */
 
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface AccessLimit {
 
     /**
-     * 接口频率。格式必须为： {@code /^\\d+/\\d+[smhd]/} 即 次数/单位时间。例如 5/1m 表示 一分钟最多请求 5 次接口。<br>
-     * 单位时间中：                                                                                       <br>
-     *      - s : 秒                                                                                     <br>
-     *      - m : 分                                                                                     <br>
-     *      - h : 小时                                                                                    <br>
-     *      - d : 天                                                                                     <br>
-     *
+     * 接口频率。格式必须为： {@code /^\\d+/\\d+[smhd]/} 即 次数/单位时间。例如 5/1 表示 一分钟最多请求 5 次接口。<br>
      */
-    String frequency() default "5/1m";
+    String frequency() default "5/120";
 
-
+    /**
+     * IP 对接口的访问达到频率限制后的处理器。
+     */
+    Class<? extends AccessLimitHandler> handler() default LimitIpHandler.class;
 }

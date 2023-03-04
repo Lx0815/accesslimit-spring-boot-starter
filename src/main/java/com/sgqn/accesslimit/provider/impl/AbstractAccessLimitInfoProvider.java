@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @description:
@@ -26,13 +27,11 @@ import java.util.*;
  */
 
 
-public class DefaultAccessLimitInfoProvider implements AccessLimitInfoProvider, ApplicationContextAware {
-
-    @Autowired
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+public class AbstractAccessLimitInfoProvider implements AccessLimitInfoProvider, ApplicationContextAware {
 
     private final Map<String, AccessLimitInfo> accessLimitInfoMap = new HashMap<>();
-
+    @Autowired
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
     private ApplicationContext context;
 
     @Override

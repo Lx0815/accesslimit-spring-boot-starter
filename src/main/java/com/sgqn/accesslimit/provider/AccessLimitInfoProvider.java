@@ -1,6 +1,7 @@
 package com.sgqn.accesslimit.provider;
 
-import java.util.function.Supplier;
+import com.sgqn.accesslimit.entity.AccessLimitInfo;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @description:
@@ -10,9 +11,10 @@ import java.util.function.Supplier;
  * @modify:
  */
 
-public interface ControllerUrisProvider extends Supplier<String> {
+public interface AccessLimitInfoProvider extends InitializingBean {
 
     @Override
-    String get();
+    void afterPropertiesSet() throws Exception;
 
+    AccessLimitInfo getAccessLimitInfo(String uri);
 }
